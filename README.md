@@ -9,12 +9,12 @@ Android 5+
 - Performing a new search will not stop playback
 
 # Build Requirements
-git 2+
-node 12.8.4
-yarn 1.22.10
-[watchman](https://facebook.github.io/watchman/docs/install#buildinstall) (if on macos)
-jdk 1.8.0_282
-Android Studio 3.0+
+- git 2+
+- node 12.8.4
+- yarn 1.22.10
+- [watchman](https://facebook.github.io/watchman/docs/install#buildinstall) (if on macos)
+- jdk 1.8.0_282
+- Android Studio 3.0+
 
 # Running on Emulator/Device
 https://docs.expo.io/workflow/android-studio-emulator/
