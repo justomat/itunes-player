@@ -13,6 +13,7 @@ git 2+
 node 12.8.4
 yarn 1.22.10
 [watchman](https://facebook.github.io/watchman/docs/install#buildinstall) (if on macos)
+jdk 1.8.0_282
 Android Studio 3.0+
 
 # Running on Emulator/Device
@@ -25,8 +26,15 @@ yarn android
 ```
 
 # Deploy
-```
+```bash
 cd itunes-player
 yarn
 yarn build
+
+# apk location
+ls android/app/build/outputs/apk/release/app-release.apk
+
+# install
+adb install android/app/build/outputs/apk/release/app-release.apk
+# or upload to Google PlayStore
 ```
