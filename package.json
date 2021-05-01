@@ -3,9 +3,7 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "web": "expo start --web",
-    "eject": "expo eject",
-    "build": "expo build:android -t apk"
+    "build": "cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
     "expo": "~41.0.1",
