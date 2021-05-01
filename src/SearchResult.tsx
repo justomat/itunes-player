@@ -1,24 +1,41 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { SongList } from "./SongList";
+import { useAudio } from "./utils/useAudio";
 import { useSongsByArtist } from "./utils/useSongsByArtist";
 
-function AudioPlayer({ audio }) {
-  const [isPlaying, setIsPlaying] = useState(false);
+const Loading = () => <ActivityIndicator color="tomato" size="large" />;
+const Button = ({ text, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <Text style={{ fontSize: 32 }}>{text}</Text>
+  </TouchableOpacity>
+);
 
+function AudioPlayer({ uri }: { uri: string }) {
+  const { status, play, pause, replay } = useAudio(uri);
+
+  const isFinished =
+    (status?.playableDurationMillis || 0) - (status?.positionMillis || 0) < 200;
+
+  if (!uri) return null;
   return (
     <View
       style={{
+        borderTopWidth: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: "#ffa494",
         height: 60,
       }}
     >
-      <TouchableOpacity>
-        <Text style={{ fontSize: 32 }}>{isPlaying ? "▶️" : "⏸"}</Text>
-      </TouchableOpacity>
+      {!status?.isLoaded ? (
+        <Loading />
+      ) : status.isPlaying ? (
+        <Button text="⏸" onPress={pause} />
+      ) : (
+        <Button text="▶️" onPress={isFinished ? replay : play} />
+      )}
     </View>
   );
 }
@@ -28,10 +45,6 @@ export function SearchResult({ query }: { query: string }) {
 
   const [selected, setSelected] = useState<Track>();
 
-  useEffect(() => {
-    selected;
-  }, [selected]);
-
   return (
     <>
       <SongList
@@ -40,7 +53,7 @@ export function SearchResult({ query }: { query: string }) {
         selected={selected}
         setSelected={setSelected}
       />
-      {!!selected && <AudioPlayer key={query} audio="50" />}
+      <AudioPlayer uri={selected?.previewUrl || ""} />
     </>
   );
 }

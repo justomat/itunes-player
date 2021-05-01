@@ -22,7 +22,7 @@ export function Song({
         style={{
           flexDirection: "row",
           padding: 10,
-          ...(active ? { backgroundColor: "#ff3814" } : {}),
+          ...(active ? { backgroundColor: "#ffbf47" } : {}),
         }}
       >
         <Image
